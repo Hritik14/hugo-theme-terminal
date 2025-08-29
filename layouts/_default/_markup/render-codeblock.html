@@ -1,0 +1,16 @@
+{{ $id := printf "code-%d" now.UnixNano }}
+{{- if .Attributes.file -}}
+<div class="collapsable-code">
+  <input id="{{ .Attributes.id | default $id }}" type="checkbox" {{ if ( eq .Attributes.isCollapsed "true" ) -}} checked {{- end }} />
+  <label for="{{ .Attributes.id | default $id }}">
+    {{- if .Type -}}
+    <span class="collapsable-code__language">{{ .Type }}</span>
+    {{- end -}}
+    <span class="collapsable-code__title">{{ .Attributes.file | markdownify }}</span>
+    <span class="collapsable-code__toggle" data-label-expand="{{ .Attributes.expand | default "△" }}" data-label-collapse="{{ .Attributes.collapse | default "▽" }}"></span>
+  </label>
+  <pre class="language-{{ .Type | default "text" }}"><code>{{ .Inner | string }}</code></pre>
+</div>
+{{- else -}}
+<pre class="language-{{ .Type | default "text" }}"><code>{{ .Inner | string }}</code></pre>
+{{- end -}}

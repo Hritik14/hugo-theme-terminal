@@ -33,21 +33,18 @@
 
         {{ partial "cover.html" . }}
 
-        <div class="post-content">
+        <div class="post-preview">
+          <a href="{{ .Permalink }}">
           {{ if .Params.showFullContent }}
             {{ .Content }}
           {{ else if .Description }}
             {{ .Description | markdownify }}
           {{ else }}
-            {{ .Summary }}
+            {{ .Summary | plainify }}
           {{ end }}
+          </a>
         </div>
 
-        {{ if not .Params.showFullContent }}
-          <div>
-            <a class="read-more button" href="{{.RelPermalink}}">{{ $.Site.Params.ReadMore }} →</a>
-          </div>
-        {{ end }}
       </article>
     {{ end }}
 
